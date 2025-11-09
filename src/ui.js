@@ -21,9 +21,9 @@ function createBigScreenPage() {
     content.className = 'big-screen-content-root';
 
     // --- INJECT SHADOW DOM STYLES ---
-    const styleEl = document.createElement('style');
-    styleEl.innerHTML = pageStyles;
-    content.appendChild(styleEl);
+    // const styleEl = document.createElement('style');
+    // styleEl.innerHTML = pageStyles;
+    // content.appendChild(styleEl);   <-- not need , using stylesheets
     // ---------------------------------
 
     content.innerHTML += `
@@ -72,6 +72,7 @@ export function addBigScreenPage(content_link, resizable_screen) {
         type: 'page',
         render: true,
         content: BigScreenContent,
+        stylesheets: pageStyles ,
         tabIcon: "icon liveserver",
         id: pluginId,
         hideQuickTools: true,

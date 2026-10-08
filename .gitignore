@@ -1,0 +1,5 @@
+node_modules/
+dist/
+*.zip
+package-lock.json
+.env

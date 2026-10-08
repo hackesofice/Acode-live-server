@@ -7,16 +7,17 @@
  * @returns {boolean} True if the active file is HTML, false otherwise.
  */
 export function isHTMLFile() {
-    const { editorManager } = window;
+    // const { editorManager } = window;
+  const editorManager = window.editorManager
+  
     if (
         editorManager &&
         editorManager.activeFile &&
-        editorManager.activeFile.session &&
-        editorManager.activeFile.session.$modeId
+        editorManager.activeFile.currentMode
     ) {
-        const ActiveFileType = editorManager.activeFile.session.$modeId;
+        const ActiveFileType = editorManager.activeFile.currentMode;
         if (ActiveFileType) {
-            return ActiveFileType === 'ace/mode/html';
+            return ActiveFileType === 'html';
         }
     }
     return false;
@@ -44,11 +45,18 @@ export function resolvePath(rawPath) {
         const directory = trimmed.substring(0, trimmed.lastIndexOf("/"));
         return `/sdcard/${directory}`;
     }
-    if (rawPath.startsWith("file:///data/user/0/com.foxdebug.acode/files/alpine/home/")){
-        const prefix = "file:///data/user/0/com.foxdebug.acode/files/alpine/home";
+    if (rawPath.startsWith("file:///data/user/0/com.foxdebug.acode/files/public")){
+        const prefix = "file:///data/user/0/com.foxdebug.acode/files/public";
         const trimmed = rawPath.slice(prefix.length);
         const directory = trimmed.substring(0, trimmed.lastIndexOf("/"));
         return `..${directory}`;
     }
+    if (rawPath.startsWith("file:///data/user/0/com.foxdebug.acodefree/files/public")){
+          const prefix = "file:///data/user/0/com.foxdebug.acodefree/files/public";
+          const trimmed = rawPath.slice(prefix.length);
+          const directory = trimmed.substring(0, trimmed.lastIndexOf("/"));
+          return `..${directory}`;
+    }
+  
     return false;
 }

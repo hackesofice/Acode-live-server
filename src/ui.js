@@ -212,6 +212,7 @@ function showTheWindow() {
  * @returns {object} The created SideButton instance.
  */
 export function createSideButton(onClick) {
+  console.log('createSideButton function is called')
     return SideButton({
         text: 'Live Server',
         icon: 'warningreport_problem',

@@ -1,5 +1,8 @@
 # CHANGELOGS
 
+# 2.0.9
+> Migrated from acode ace version to CodeMirror version.
+
 # 2.0.8
 > added auto install all modules support for alpine
 

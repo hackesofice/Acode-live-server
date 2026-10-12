@@ -42,7 +42,7 @@ class AcodePlugin {
         acode.addIcon('liveserver', `${this.baseUrl}icon.png`);
         
         this.liveServerButton = createSideButton(this.openWindow);
-      console.log(this.liveServerButton)
+      // console.log(this.liveServerButton)
         this.onSwitchFile(); // Run the full check once on init
 
         // Add event listeners
@@ -60,12 +60,12 @@ class AcodePlugin {
      * Shows/hides the side button and updates the server if the window is open.
      */
     onSwitchFile() {
-        console.log(editorManager.activeFile.uri)
+        // console.log(editorManager.activeFile.uri)
         // .log('switch file is working')
         // console.log(this.liveServerButton.show())
         // console.log('liv3 server button shown')
         const isHtml = isHTMLFile();
-        console.log('the file type is', isHtml? 'html':'not html')
+        // console.log('the file type is', isHtml? 'html':'not html')
         // 1. Show/hide the side button
         if (isHtml) {
             this.liveServerButton?.show();

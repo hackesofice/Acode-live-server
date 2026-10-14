@@ -55,15 +55,21 @@ jobs:
 
           echo "file=$ZIP" >> "$GITHUB_OUTPUT"
 
-      - name: Publish GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG="${{ steps.version.outputs.tag }}"
-          VERSION="${{ steps.version.outputs.version }}"
-          ZIP="${{ steps.zip.outputs.file }}"
+      # - name: Publish GitHub Release
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     TAG="${{ steps.version.outputs.tag }}"
+      #     VERSION="${{ steps.version.outputs.version }}"
+      #     ZIP="${{ steps.zip.outputs.file }}"
 
-          gh release create "$TAG" "$ZIP" \
-            --title "LiveServer $VERSION" \
-            --generate-notes \
-            --latest
+      #     gh release create "$TAG" "$ZIP" \
+      #       --title "LiveServer $VERSION" \
+      #       --generate-notes \
+      #       --latest
+
+
+      - name: Acode Marketplace Publish
+        run: node upload.js
+        env:
+          ACODE_COOKIE: ${{ secrets.ACODE_COOKIE }}

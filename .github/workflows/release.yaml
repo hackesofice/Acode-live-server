@@ -41,12 +41,12 @@ jobs:
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           CURRENT_DIR=$(pwd)
-          ls
-          cd ..
-          ls
+          # ls
+          # cd ..
+          # ls
           
-          echo "$CURRENT_DIR"
-          ZIP="liveserver-${VERSION}.zip"
+          # echo "$CURRENT_DIR"
+          ZIP="liveserver-v${VERSION}.zip"
 
           if [ ! -f "$ZIP" ]; then
             echo "Error: $ZIP was not generated in the project root."

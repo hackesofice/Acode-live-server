@@ -35,12 +35,22 @@ async function main() {
 
     const zipName = zipFiles[0];
     const zipPath = path.join(PROJECT_DIR, zipName);
-    const readmePath = path.join(PROJECT_DIR, 'README.md');
+
+    // Find changelogs.md irrespective of filename casing.
+    const changelogFile = files.find(
+        file => file.toLowerCase() === 'changelogs.md'
+    );
+
+    if (!changelogFile) {
+        throw new Error('changelogs.md not found in the project directory.');
+    }
+
+    const changelogPath = path.join(PROJECT_DIR, changelogFile);
 
     // Read the ZIP and changelog.
     const [zip, changelog] = await Promise.all([
         fs.readFile(zipPath),
-        fs.readFile(readmePath, 'utf8')
+        fs.readFile(changelogPath, 'utf8')
     ]);
 
     if (zip.length === 0) {
@@ -48,7 +58,7 @@ async function main() {
     }
 
     if (!changelog.trim()) {
-        throw new Error('README.md is empty.');
+        throw new Error('changelogs.md is empty.');
     }
 
     // Create multipart form data.
@@ -61,6 +71,7 @@ async function main() {
     );
 
     form.append('changelogs', changelog);
+
     form.append(
         'supported_editor',
         process.env.ACODE_SUPPORTED_EDITOR || 'cm'
@@ -73,8 +84,10 @@ async function main() {
 
     console.log(`Plugin: ${zipName}`);
     console.log(`Size: ${(zip.length / 1024).toFixed(2)} KB`);
+    console.log(`Changelog: ${changelogFile}`);
     console.log('Uploading to Acode Marketplace...');
 
+    // Upload to the Acode Marketplace.
     const response = await fetch(API_URL, {
         method: 'PUT',
         headers: {
@@ -88,22 +101,27 @@ async function main() {
         signal: AbortSignal.timeout(180000)
     });
 
+    // Read and display the marketplace response.
     const responseText = await response.text();
-    
+
     console.log(`HTTP Status: ${response.status}`);
-    
-    let result;
-    
+
     try {
-        result = JSON.parse(responseText);
+        const result = JSON.parse(responseText);
+
         console.log('Marketplace Response:');
         console.log(JSON.stringify(result, null, 2));
     } catch {
-        console.log('Non-JSON response:', responseText.slice(0, 5000));
+        console.log(
+            'Non-JSON response:',
+            responseText.slice(0, 5000)
+        );
     }
-    
+
     if (!response.ok) {
-        throw new Error(`Upload failed with HTTP ${response.status}.`);
+        throw new Error(
+            `Upload failed with HTTP ${response.status}.`
+        );
     }
 
     console.log('Upload request completed successfully.');

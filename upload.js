@@ -89,13 +89,19 @@ async function main() {
     });
 
     const responseText = await response.text();
-
+    
     console.log(`HTTP Status: ${response.status}`);
-
-    if (responseText) {
-        console.log('Response:', responseText.slice(0, 5000));
+    
+    let result;
+    
+    try {
+        result = JSON.parse(responseText);
+        console.log('Marketplace Response:');
+        console.log(JSON.stringify(result, null, 2));
+    } catch {
+        console.log('Non-JSON response:', responseText.slice(0, 5000));
     }
-
+    
     if (!response.ok) {
         throw new Error(`Upload failed with HTTP ${response.status}.`);
     }

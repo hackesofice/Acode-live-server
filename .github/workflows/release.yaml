@@ -73,3 +73,152 @@ jobs:
         run: node upload.cjs
         env:
           ACODE_COOKIE: ${{ secrets.ACODE_COOKIE }}
+
+          
+      # - name: Notify Discord and Telegram
+      #   if: always()
+      #   continue-on-error: true
+
+      #   env:
+      #     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      #     WORKFLOW_STATUS: ${{ job.status }}
+      #     BUILD_STATUS: ${{ steps.build.outcome }}
+      #     RELEASE_STATUS: ${{ steps.release.outcome }}
+      #     MARKETPLACE_STATUS: ${{ steps.marketplace.outcome }}
+
+      #     VERSION: ${{ steps.version.outputs.version }}
+      #     TAG: ${{ steps.version.outputs.tag }}
+      #     ZIP_FILE: ${{ steps.zip.outputs.file }}
+
+      #     REPOSITORY: ${{ github.repository }}
+      #     RUN_ID: ${{ github.run_id }}
+      #     SERVER_URL: ${{ github.server_url }}
+
+      #   run: |
+      #     node <<'NODE'
+      #     const workflowStatus = process.env.WORKFLOW_STATUS || 'unknown';
+      #     const buildStatus = process.env.BUILD_STATUS || 'not run';
+      #     const releaseStatus = process.env.RELEASE_STATUS || 'not run';
+      #     const marketplaceStatus = process.env.MARKETPLACE_STATUS || 'not run';
+
+      #     const version = process.env.VERSION || 'unknown';
+      #     const tag = process.env.TAG || '';
+      #     const zipFile = process.env.ZIP_FILE || 'not generated';
+
+      #     const repository = process.env.REPOSITORY;
+      #     const runId = process.env.RUN_ID;
+      #     const serverUrl = process.env.SERVER_URL;
+
+      #     const workflowUrl = `${serverUrl}/${repository}/actions/runs/${runId}`;
+      #     const releaseUrl = tag
+      #       ? `${serverUrl}/${repository}/releases/tag/${tag}`
+      #       : `${serverUrl}/${repository}/releases`;
+
+      #     const emoji = status => ({
+      #       success: '✅',
+      #       failure: '❌',
+      #       cancelled: '⚠️',
+      #       skipped: '⏭️'
+      #     })[status] || '❔';
+
+      #     const message = [
+      #       `${emoji(workflowStatus)} LiveServer CI Notification`,
+      #       '',
+      #       `Repository: ${repository}`,
+      #       `Version: ${version}`,
+      #       `Release tag: ${tag || 'not created'}`,
+      #       `ZIP: ${zipFile}`,
+      #       '',
+      #       `Build: ${emoji(buildStatus)} ${buildStatus}`,
+      #       `GitHub Release: ${emoji(releaseStatus)} ${releaseStatus}`,
+      #       `Acode Marketplace: ${emoji(marketplaceStatus)} ${marketplaceStatus}`,
+      #       '',
+      #       `Release: ${releaseUrl}`,
+      #       `Workflow logs: ${workflowUrl}`
+      #     ].join('\n');
+
+      #     async function sendDiscord() {
+      #       const webhook = process.env.DISCORD_WEBHOOK;
+
+      #       if (!webhook) {
+      #         throw new Error('DISCORD_WEBHOOK secret is missing.');
+      #       }
+
+      #       const response = await fetch(webhook, {
+      #         method: 'POST',
+      #         headers: {
+      #           'Content-Type': 'application/json'
+      #         },
+      #         body: JSON.stringify({
+      #           content: message
+      #         }),
+      #         signal: AbortSignal.timeout(15000)
+      #       });
+
+      #       if (!response.ok) {
+      #         throw new Error(
+      #           `Discord returned HTTP ${response.status}: ` +
+      #           (await response.text()).slice(0, 500)
+      #         );
+      #       }
+
+      #       console.log('Discord notification sent.');
+      #     }
+
+      #     async function sendTelegram() {
+      #       const token = process.env.TELEGRAM_BOT_TOKEN;
+      #       const chatId = process.env.TELEGRAM_CHAT_ID;
+
+      #       if (!token || !chatId) {
+      #         throw new Error(
+      #           'TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing.'
+      #         );
+      #       }
+
+      #       const response = await fetch(
+      #         `https://api.telegram.org/bot${token}/sendMessage`,
+      #         {
+      #           method: 'POST',
+      #           headers: {
+      #             'Content-Type': 'application/json'
+      #           },
+      #           body: JSON.stringify({
+      #             chat_id: chatId,
+      #             text: message,
+      #             disable_web_page_preview: true
+      #           }),
+      #           signal: AbortSignal.timeout(15000)
+      #         }
+      #       );
+
+      #       const result = await response.json();
+
+      #       if (!response.ok || !result.ok) {
+      #         throw new Error(
+      #           `Telegram notification failed: ${
+      #             result.description || response.status
+      #           }`
+      #         );
+      #       }
+
+      #       console.log('Telegram notification sent.');
+      #     }
+
+      #     async function notify(name, fn) {
+      #       try {
+      #         await fn();
+      #       } catch (error) {
+      #         console.error(`${name} notification error:`, error.message);
+      #       }
+      #     }
+
+      #     Promise.all([
+      #       notify('Discord', sendDiscord),
+      #       notify('Telegram', sendTelegram)
+      #     ]).then(() => {
+      #       console.log('Notification attempts completed.');
+      #     });
+      #     NODE

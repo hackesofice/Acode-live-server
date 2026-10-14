@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "plugin.json"
+    # paths:
+    #   - "plugin.json"
 
 permissions:
   contents: write
@@ -40,6 +40,9 @@ jobs:
         id: zip
         run: |
           VERSION="${{ steps.version.outputs.version }}"
+          CURRENT_DIR=$(pwd)
+          
+          echo "$CURRENT_DIR"
           ZIP="liveserver-${VERSION}.zip"
 
           if [ ! -f "$ZIP" ]; then

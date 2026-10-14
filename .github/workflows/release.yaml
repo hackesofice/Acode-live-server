@@ -41,6 +41,8 @@ jobs:
         run: |
           VERSION="${{ steps.version.outputs.version }}"
           CURRENT_DIR=$(pwd)
+
+          cd ..
           
           echo "$CURRENT_DIR"
           ZIP="liveserver-${VERSION}.zip"

@@ -70,6 +70,6 @@ jobs:
 
 
       - name: Acode Marketplace Publish
-        run: node upload.js
+        run: node upload.cjs
         env:
           ACODE_COOKIE: ${{ secrets.ACODE_COOKIE }}

@@ -1,5 +1,8 @@
 # CHANGELOGS
 
+# 2.1.1
+> Implement server readiness check before switching back from new terminal to the working tab
+
 # 2.0.9
 > Migrated from acode ace version to CodeMirror version.
 

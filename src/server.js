@@ -118,5 +118,24 @@ export async function start_in_app_server(activeFileId) {
 
     // Re-open the originally active file
     await new Promise((resolve) => { setTimeout(resolve, 4000) });
-    window.editorManager.switchFile(activeFileId);
+    // window.editorManager.switchFile(activeFileId); //// i have to trigger it only when the server is ready ( once server gets connected )
+
+    let retries = 0;
+    
+    while (true) {
+        let port = await getLivePortIfAvailable();
+    
+        if (port) {
+            window.editorManager.switchFile(activeFileId);
+            break;
+        } else {
+            if (retries >= 10) {
+                alert("Max retries exceeded. Now observe the console for errors. If it's still installing, wait for the installation to complete, then run Live Server again. Thanks!");
+                break;
+            }
+    
+            retries++;
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
+    }
 }

@@ -1,4 +1,6 @@
 # CHANGELOGS
+# 2.1.2
+> implementation: Auto start Ui once server sets up.
 
 # 2.1.1
 > Implement server readiness check before switching back from new terminal to the working tab

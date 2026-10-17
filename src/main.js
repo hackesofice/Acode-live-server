@@ -131,6 +131,7 @@ class AcodePlugin {
      * This is called on window open, 'switch-file', and 'save-file'.
      */
     async handleTheBackend() {
+      // console.log('handle tbe backed called ')
         const ActiveFile = editorManager.activeFile;
         if (!ActiveFile) return;
 
@@ -164,6 +165,7 @@ class AcodePlugin {
             if (!this.jsonData.port) {
                 this.jsonData.port = await getLivePortIfAvilable();
             }
+          // alert(this.jsonData.port)
 
             if (this.jsonData.port) {
                 // This call sends the PATCH request to the server
@@ -193,11 +195,19 @@ class AcodePlugin {
                 }
             } else {
                 // No server found
-                showDefaultWindow();
+                // showDefaultWindow();
                 if (window.BuildInfo.versionCode >= 963) {
                     document.getElementById('closeButton')?.click();
-                    await start_in_app_server(Active_file_id);
-                    window.alert("Backend server is starting. Please run Live Server again.");
+                    let port = await start_in_app_server(Active_file_id);
+                  // alert('we have got the server port')
+                    // window.alert("Backend server is starting. Please run Live Server again.");
+                  // alert(`got the server port running the backend ${port}`)
+                  if (port){
+                      // alert(`got the server port running the backend ${port}`)
+                      this.openWindow();
+                    }else{
+                       showDefaultWindow();
+                    }
                 }
             }
         } catch (error) {

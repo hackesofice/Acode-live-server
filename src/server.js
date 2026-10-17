@@ -32,6 +32,7 @@ export async function getLivePortIfAvilable(timeout = 1000) {
         1030, 1031, 1032, 1033, 1034
     ];
     for (let port of portList) {
+      // console.log(`checking port ${port}`)
         try {
             await check_this_port(port, timeout);
             return port;
@@ -115,7 +116,7 @@ export async function start_in_app_server(activeFileId) {
     command += "fi\n";
     
     terminal.write(server.id, command);
-
+    console.log(server)
     // Re-open the originally active file
     await new Promise((resolve) => { setTimeout(resolve, 4000) });
     // window.editorManager.switchFile(activeFileId); //// i have to trigger it only when the server is ready ( once server gets connected )
@@ -123,11 +124,12 @@ export async function start_in_app_server(activeFileId) {
     let retries = 0;
     
     while (true) {
-        let port = await getLivePortIfAvailable();
-    
+      // console.log('retrying')
+        let port = await getLivePortIfAvilable();
+        // console.log(`Port is ${port}`)
         if (port) {
             window.editorManager.switchFile(activeFileId);
-            break;
+            return port
         } else {
             if (retries >= 10) {
                 alert("Max retries exceeded. Now observe the console for errors. If it's still installing, wait for the installation to complete, then run Live Server again. Thanks!");

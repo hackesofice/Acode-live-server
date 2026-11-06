@@ -5,9 +5,6 @@
 </p>
 
 ![](https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&pause=1000&color=C084FC&center=true&vCenter=true&width=705&lines=🚀+Acode+Live+Server+Plugin+by+Hackesofice;💻+Live+Preview+for+HTML+on+Android;🌐+Open+Source+and+Free+Forever!)
-
-
-
   
   <p align="center">
         <!-- <img src="https://media.giphy.com/media/2wYFfJR9uZoOs/giphy.gif" height="25"> -->
@@ -70,15 +67,11 @@ You're welcome to inspect, modify, or improve the code as needed.
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&duration=4000&pause=1000&center=true&vCenter=true&width=435&lines=HEY+DEAR+WELCOME+TO+THE+REPOSITORY+;PLEASE+DON'T+FORGET+TO+STAR+%E2%AD%90+US;REPORT+FOR+ANY+ISSUES+;FOLLOW+US+ON+YOUTUBE;USE+100%+FREE+)](https://git.io/typing-svg)
 
 
-
-> **Warning ⚠️**  
-> This plugin requires the **Termux app** as a backend server to function properly.
-
 ---
 
 ## Installation Steps
 
-### Backend (Termux)
+### Backend ( Termux )  --> now optional
 
 1. <a href="https://f-droid.org/repo/com.termux_1000.apk">Download</a> Termux from F-Droid
 2. Install and open Termux.
@@ -86,7 +79,7 @@ You're welcome to inspect, modify, or improve the code as needed.
 
 ---
 
-### Frontend (Acode App)
+### Frontend ( Acode App ) 
 
 1. Install the <a href="https://play.google.com/store/apps/details?id=com.foxdebug.acodefree">**Acode app**</a> from the Google Play Store.
 2. Tap the **menu** icon in the top-left corner.
@@ -99,11 +92,12 @@ You're welcome to inspect, modify, or improve the code as needed.
 
 ## How to Use
 
-1. Start the backend server in Termux.
+1. Start the backend server in Termux ( optional, if not running on termux it autometically starts at Acode App )
 2. Open the Acode app.
 3. Open any `.html` file.
 4. Tap the new **Live Server** button on the top-right corner.
-5. You will see a live preview screen open.
+5. wait for server startup ( takes 3 seconds max )
+6. You will see a live preview screen open.
 
 ---
 
@@ -115,22 +109,24 @@ You're welcome to inspect, modify, or improve the code as needed.
 > **Note**  
 > This plugin is under active development. You may encounter occasional bugs or missing features, but we are working hard to improve it and reach 100% stability.
 
-### Menu Bar
+### Resize Button
 - **Scroll Up**: Increase the preview screen size.
 - **Scroll Down**: Decrease the preview screen size.
 
-### Close Button
-- Tap to completely close the live server window.
+### Minimize Button 
+- minimizes the live server window
+- creates an bubble at left center
 
-### Chrome button
-- tap to move `Live Server` in a tab 
+### Maximize Button
+- tap to move `Live Server` in a tab ( full screen )
 - Provides a big screen for better visibiltiy and experience
 
+### Close Button
+- Tap to completely close the live server window.
+  
 ---
 
 ## Upcoming Features
-
-- Better UI/UX design
 - Preview in Browser button
 - Make Universaly accessible
 - Additional tools and customization options
@@ -155,4 +151,4 @@ We welcome all contributions. Please ensure you include proper information in yo
 
 > **Note**  
 > If you encounter any issues, please open an issue on our GitHub page.
-> 
+

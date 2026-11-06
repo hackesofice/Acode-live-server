@@ -91,7 +91,7 @@ class AcodePlugin {
      */
     openWindow() {
         if (!document.getElementById("live-server-window")) {
-            showWindow(this.shutDownLiveServer, this.oldSetting);
+            showWindow(this.shutDownLiveServer, this.oldSetting, this.baseUrl);
             // 'save-file' listener was moved to init()
             this.handleTheBackend();
         }
@@ -222,7 +222,7 @@ class AcodePlugin {
     async destroy() {
         this.shutDownLiveServer(); // Restores autosave setting
         document.getElementById('live-server-window')?.remove();
-        document.getElementById('maximizeButton')?.remove();
+        document.getElementById('maximizeButton2')?.remove();
         this.liveServerButton?.hide();
         this.liveServerButton = undefined;
         

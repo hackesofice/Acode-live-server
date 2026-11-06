@@ -1,4 +1,16 @@
 # CHANGELOGS
+
+# 2.1.3 ( Major )
+> 1. added Address bar
+> 2. added icon
+> 3. updated Ui
+> 4. updated resizable window
+> 5. removed ugly branding
+> 6. replaced LIVE button with an transparent logo
+> 7. added rezsize button
+> 8. improved overall look and feel
+
+
 # 2.1.2
 > implementation: Auto start Ui once server sets up.
 

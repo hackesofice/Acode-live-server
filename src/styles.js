@@ -3,78 +3,159 @@
  * These will be injected into document.head by main.js.
  */
 export const popupStyles = `
-/*  #live-server-window {
-    position: fixed !important; bottom: 0 !important; left: 0 !important; right:0 !important; width: 100% !important; max-width:100% !important; height: 40vh !important; background: white !important; border-top: 2px solid black !important; box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5) !important; z-index: 90 !important; overflow: hidden !important; transition: height 0.1s ease !important;
-  }*/
-  
 .liveserver_Window {
-  position: fixed !important; bottom: 0 !important; left: 0 !important; right:0 !important; width: 100% !important; max-width:100% !important; background: white !important; border-top: 2px solid black !important; box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5) !important; z-index: 90 !important; overflow: hidden !important; transition: height 0.1s ease !important;
+      position: fixed !important; 
+      bottom: 0 !important; 
+      left: 0 !important; 
+      right:0 !important; 
+      background-color: transparent !important;
+      z-index: 90 !important; 
+      overflow: auto !important; 
+      transition: height 0.1s ease !important;
+      border:none;
+      outline:none;
   }
-  
-  .liveserver_TopBar {
-  height: 6%; width:96%; margin-right:auto; margin-left:auto; margin-top:3px; margin-bottom:4px; background-color:gray; position:stiky; display:flex; flex-direction:row; justify-content:space-between; border-radius:10px; border:none; padding:0px 5px
+
+  .liveserver_Window, .liveserver_Window * {
+      box-sizing: border-box;
+  }
+
+  .liveserver_Window legend {
+      align-items:center; 
+      background: #222; 
+      display:flex; 
+      align-items:center;
+      justify-content:center;
+      cursor:pointer; 
+      user-select:none; 
+      padding-top:0;
+      border-radius:60% 60% 0 0;
+      width:40px;
+      margin-left:auto;
+      margin-right:auto;
+  }
+
+  .liveserver_Window legend p{
+      top:0;
+      height:50%;
+      font-weight:700;
+      animation: flip 4s linear infinite;
   }
 
   #iframe, .iframe {
-    right:0; left:0; bottom:0; border: 1px solid black; height: 100%; width: 100%; box-shadow: 0px 0px 10px rgba(0.0.0.0.50);
+      right:0; 
+      left:0; bottom:0; 
+      border: 1px solid black; 
+      height: 100%; 
+      width: 100%; 
+      box-shadow: 0px 0px 10px rgba(0.0.0.0.50);
+  }
+
+  #right_part {
+   /*styles for title bars right part ( buttons ) */
+     display:flex;
+     gap: 5px;
+     height: 80%;
+     align-items:center;
+     padding: 0 10px;
+  }
+
+  #right_part span {
+      height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+      border-radius: 6px;
+      background-color: #303938;
+    }
+
+  #minimizeButton {
+  
+  }
+
+  #maximizeButton{
+  
   }
 
   #closeButton {
-    background: red;
-    color: white;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-  }
-
-  #maxFullScreen {
-    margin-right: 10px;
+  
   }
 
   /* "LIVE" floating button */
-  #maximizeButton {
+  #maximizeButton2 {
     height: 35px !important;
     width: 35px !important;
-    border: 2px solid black !important;
-    border-radius: 5px !important;
     position: absolute !important;
     left: 10px !important;
     bottom: 50% !important;
     z-index: 10000 !important;
-    color: black;
-    background-color: red !important;
+    background:transparent;
   }
   
   /* Style for the draggable title bar */
-  .liveserver_TitleBar{
-    width: 100%; height: 40px; background: #222; color: white; font-size: 16px; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; cursor: ns-resize; user-select: none; touch-action: none;
-  }
-  /* NEW: Style for the title text span */
-  #live-server-title-text {
-    font-size: 16px;
-    pointer-events: none; /* Prevents text from interfering with drag */
-  }
-  
-  /* NEW: Container for the buttons */
-  .liveserver_ButtonContainer {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Adds space BETWEEN buttons */
-  }
-
-  #minimizeButton {
-    margin-right: 0; /* Moved from inline style */
+  .liveserver_TitleBar {
+      width: 100%; 
+      height: 40px; 
+      background: #222; 
+      color: white; 
+      font-size: 16px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      cursor: ns-resize; 
+      user-select: none; 
+      touch-action: none;
   }
   
   .liveserver_MainScreen{
-  bottom: 0; top: 10px; border: 1px solid black; height: 100%; width: 100%;
+      bottom: 0; 
+      top: 10px;
+      flex-grow:-1;
+      width: 100%;
+      border:none;
   }
-  
-  .liveserver_HrTag {
-  border: 1px solid black; margin-top: 2px;
+
+  #window_logo{
+    width:10px;
+    height:100%;
+  }
+
+  @keyframes spin {
+     from {
+        transform: rotate(0deg);
+     }
+     to {
+        transform: rotate(360deg);
+     }
+  }
+
+  @keyframes flip {
+      0% {
+         transform: rotate(0deg);
+      }
+
+      40% {
+         transform: rotate(0deg);
+      }
+      50% {
+         transform: rotate(180deg);
+      }
+      90% {
+         transform: rotate(180deg);
+      }
+      100% {
+         transform: rotate(360deg);
+      }
+  } 
+
+  #maximizeButton2_logo {
+      height:100%;
+      width:100%;
+      outline: none !important;
+      border:none !important;
   }
 `;
 
@@ -104,8 +185,7 @@ export const pageStyles = `
     flex-direction: row; 
     justify-content: space-between; 
     border-radius: 10px; 
-    border: none; 
-    padding: 0px 5px;
+    border: none;
     z-index: 10;
   }
 
@@ -139,5 +219,10 @@ export const pageStyles = `
   #iframe22, .iframe22 {
     flex-grow: 1;
     border: none;
+  }
+
+  #window_logo{
+    height:100%; 
+    width:10vw;
   }
 `;
